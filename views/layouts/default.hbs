@@ -1,0 +1,32 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Novia Notes</title>
+    <meta name="description" content="Novia Notes Application">
+    <meta name="author" content="Novia">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <h1>Novia Notes Application</h1>
+    <!-- Check if user object set or not -->
+    {{#if user}}
+      <h4 class="success"> User: {{user.username}}</h4>
+    {{ else }}
+      <h4> User: Unknown</h4>
+    {{/if}}
+
+    <!-- Check if loginStatu object set or not -->
+    {{#if loginStatus }}
+      <h4 class="failure"> Login status: {{loginStatus}}</h4>
+    {{/if}}
+
+    {{{ body }}}
+
+    <!-- Here we would put script that can only be run when the body is renderd in the DOM tree. 
+    <script src="js/scripts.js"></script> -->
+    
+</body>
+</html>

@@ -1,0 +1,19 @@
+<h2>Notes</h2>
+<a href="/notes/create">Add new note</a>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Body</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each notes}}
+        <tr>
+            <td>{{this.title}}</td>
+            <td>{{this.body}}</td>
+            <td><a href="/notes/update/{{this.title}}">edit</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
