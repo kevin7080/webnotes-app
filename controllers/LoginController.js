@@ -10,18 +10,27 @@ class LoginController {
             username, password
         } = req.body;
 
-        if (username && username == 'novia' && password == "2023") {
-            // handlebars can also get the context from app.locals so setting it here so it remembers the values
-            res.app.locals.user = {username};
-            res.app.locals.loginStatus = '';
-        } else {
-            // handlebars can also get the context from app.locals so setting it here so it remembers the values
-            res.app.locals.user = null;
-            res.app.locals.loginStatus = "Wrong username or password";
-        }
+/* the const above can still be written as 
+        const username = req.body.username
+        const password = req.body.password */
 
-        res.redirect('home');
-    } 
+        if (username == 'novia' && password == "2023") {
+            // handlebars can also get the context from app.locals so setting it here so it remembers the values
+            res.app.locals.user = {username}; 
+            res.app.locals.loginStatus = '';
+        } else if(username == "admin" && password == "aivon") {    
+            // Handlebars can also get the context from app.locals so setting it here so it remembers the values
+            res.app.locals.user = {username}; 
+            res.app.locals.loginStatus = '';
+        }
+         else {
+            // Handlebars can also get the context from app.locals so setting it here so it remembers the values
+            res.app.locals.user = null;
+            res.app.locals.loginStatus = 'Wrong user name or password';
+        }   
+
+        res.redirect('/home');
+    }
 }
 
 module.exports = LoginController;

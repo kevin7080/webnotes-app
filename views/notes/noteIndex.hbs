@@ -1,5 +1,9 @@
 <h2>Notes</h2>
+
+{{#if_eq user.username 'admin'}}   <!-- only admin may add notes. This means if
+username is admin, show the link below, the /notes/create -->
 <a href="/notes/create">Add new note</a>
+{{/if_eq}}
 <table>
     <thead>
         <tr>
@@ -13,6 +17,8 @@
             <td>{{this.title}}</td>
             <td>{{this.body}}</td>
             <td><a href="/notes/update/{{this.title}}">edit</a></td>
+            {{#if_eq ../user.username 'admin'}}<td><a href='/notes/delete/{{this.title}}'>remove</a></td>{{/if_eq}}
+            <!-- <td><a href='/notes/delete/{{this.title}}'>remove</a></td> -->
         </tr>
         {{/each}}
     </tbody>

@@ -98,6 +98,56 @@ class NoteController {
         }      
     }
     
+    getDelete = (req, res, next) => {
+        try {
+            // The req ALWAY contain the unique instance app so all data that we put there is accessable
+            // Here we just check that a user is inlogged and of 'type' admin. Simulated 
+            if(req.app.locals.user && req.app.locals.user.username == 'admin') {
+                const title = req.params.title;
+                
+                const selectedNote = this.noteManager.getNoteByTitle(title);
+                if(selectedNote) {
+                    const info = { mode: 'Remove'};
+                    //Have made a separate form for removal
+                    res.render('notes/notesDelete', {  mode: info.mode, title : selectedNote.title, body: selectedNote.body});
+                }
+                else
+                    res.redirect('back');
+            } else {
+                res.redirect('back');
+            }
+        } catch(error) {
+            console.log(error);
+            res.redirect('back');
+        }
+    }
+
+    postDelete = (req, res) => {
+        // In this specific case, with action="" in the form, it will post to the same path as the get,
+        // this means that we also get the title in reg.params.title. Could be used for verify that the params and body contain the same value!
+        
+        // The req ALWAY contain the unique instance app so all data that we put there is accessable
+        // Here we just check that a user is inlogged and of 'type' admin. Simulated 
+        if(req.app.locals.user && req.app.locals.user.username == 'admin') {
+            
+            // Pick out the data from the form sent
+            // Form send its data in the body!
+            const {
+                title,
+            }  = req.body;
+            
+            if(title) {  
+                this.noteManager.removeNote( title);
+                res.redirect('/notes/index');
+            } else {
+                // There are errors with the entered values. Render the form again.
+                res.redirect('back');
+            } 
+        } else {
+            // The user is not the admin
+            res.redirect('back');
+        }      
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers

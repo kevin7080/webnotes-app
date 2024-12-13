@@ -33,27 +33,27 @@ const publicDirectoryPath = path.join(__dirname, './public');
 const app = express();
 // creates an Express web application. The express() function is a top-level function exported by the express module
 app.engine('hbs', engine({
-    extname: '.hbs',
+    extname: 'hbs',
     defaultLayout: 'default',
     layoutsDir: __dirname + '/views/layouts/',
     partialsDir: __dirname + '/views/partials/',
     helpers: {
-      if_eq: function (a, b, opts) { 
-          if (a == b) {
-              return opts.fn(this);
-          } else {
-              return opts.inverse(this);
-          }
-      },
-      unless_eq: function (a, b, opts) { 
-          if (a != b) {
-              return opts.fn(this);
-          } else {
-              return opts.inverse(this);
-          }
-      }
-    }
-  }));
+        if_eq: function(a, b, opts) {
+            if(a==b) {
+                return opts.fn(this);
+            }
+
+            return opts.inverse(this)
+        },
+        unless_eq: function(a, b, opts)  {
+            if(a!=b) {
+                return opts.fn(this);
+            }
+
+            return opts.inverse(this)
+   }
+}
+}))
 
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
@@ -111,8 +111,13 @@ app.get('/login', (req, res) => {
   res.sendFile(path.join(publicDirectoryPath, './login.html'));
 });
 
-app.get('/about', (req, res) => {
+
+/*app.get('/about', (req, res) => {
     res.sendFile(path.join(publicDirectoryPath, './about.html'));
+  }); // this is used in case you have static pages that are not rendered by hbs*/
+
+app.get('/about', (req, res) => {
+    res.render('about');
 });
 /*
 app.get('/notes/index', (req, res)=> {
@@ -134,7 +139,7 @@ app.get('/notes/index', (req, res)=> {
 */
   
 app.get('/help', (req, res) => {
-    res.sendFile(path.join(publicDirectoryPath, './help.html'));
+    res.render('help');
 });
 
 /*

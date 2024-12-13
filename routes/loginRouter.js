@@ -8,7 +8,7 @@ const LoginController = require(path.join(controllersDirectoryPath, './LoginCont
 const theLoginController = new LoginController();
 
 // GET methods
-loginRouter.get('/login', theLoginController.getLogin);
+loginRouter.get('/', theLoginController.getLogin);
 
 // POST methods
 loginRouter.post('/submit-login-form', theLoginController.postLogin);
